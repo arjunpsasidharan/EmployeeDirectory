@@ -97,7 +97,7 @@ var job:CompletableJob?=null
                 searchJob?.let {
                     CoroutineScope(Dispatchers.IO + it).launch {
                         val dbData =
-                            EmployeeDb.invoke(MyApplication.context).employeeDao().getFilterEmployee(key)
+                            EmployeeDb.invoke(MyApplication.context).employeeDao().getFilterEmployee("%"+key+"%")
                         if (dbData != null && dbData.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
                                 value = ResultWrapper.Success(dbData)
