@@ -22,7 +22,7 @@ class EmployeeViewModel:ViewModel() {
             if (it.equals("")){
                 EmployeeRepository.getEmployeeData<EmployeeDbModel>()
             }else{
-                EmployeeRepository.getEmployeeData<EmployeeDbModel>()
+                EmployeeRepository.getFilterResult<EmployeeDbModel>(it)
 
             }
         }
