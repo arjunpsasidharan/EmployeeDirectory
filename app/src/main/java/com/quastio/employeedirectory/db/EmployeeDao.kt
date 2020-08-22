@@ -14,7 +14,8 @@ interface EmployeeDao {
     @Query("SELECT * FROM employee")
     fun getAllEmployees(): List<EmployeeDbModel>
 
-    @Query("SELECT * FROM employee WHERE name LIKE :key")
+    @Query("SELECT * FROM employee WHERE name LIKE :key " +
+            "OR email LIKE :key")
     suspend fun getFilterEmployee(key:String): List<EmployeeDbModel>
 
 }
