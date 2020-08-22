@@ -13,19 +13,19 @@ class EmployeeDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee_details)
         intent?.let {
-            employeeDbModel=it.getSerializableExtra("employee") as  EmployeeDbModel
+            employeeDbModel = it.getSerializableExtra("employee") as EmployeeDbModel
         }
 
-        if (this::employeeDbModel.isInitialized){
-            with(employeeDbModel){
+        if (this::employeeDbModel.isInitialized) {
+            with(employeeDbModel) {
                 Glide.with(this@EmployeeDetailsActivity)
                     .load(profileImage)
                     .into(employee_iv)
-                name_tv.text=name
-                user_name_tv.text=username
-                email_tv.text=email
-                street_tv.text=address?.street
-                city_tv.text=address?.city
+                name_tv.text = name
+                user_name_tv.text = username
+                email_tv.text = email
+                street_tv.text = address?.street
+                city_tv.text = address?.city
             }
         }
     }

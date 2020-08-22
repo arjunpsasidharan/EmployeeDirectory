@@ -24,22 +24,26 @@ class MainActivity : AppCompatActivity(), EmployeeListAdapter.Interaction {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        employeeListAdapter= EmployeeListAdapter(this)
-        linearLayoutManager= LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        employee_recycler.layoutManager=linearLayoutManager
-        employee_recycler.adapter=employeeListAdapter
+        employeeListAdapter = EmployeeListAdapter(this)
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        employee_recycler.layoutManager = linearLayoutManager
+        employee_recycler.adapter = employeeListAdapter
 
 
-        employeeViewModel=ViewModelProvider(this).get(EmployeeViewModel::class.java)
+        employeeViewModel = ViewModelProvider(this).get(EmployeeViewModel::class.java)
 
         employeeViewModel.getEmployeeData().observe(this, Observer {
-            when(it){
-                is ResultWrapper.Success->{
-                    Toast.makeText(this,"success",Toast.LENGTH_SHORT).show()
+            when (it) {
+                is ResultWrapper.Success -> {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
                     updateRecyclerView(it.data)
                 }
                 is ResultWrapper.Error -> {
-                    Toast.makeText(this, "code  " + it.code + "  error " + it.error, Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        this,
+                        "code  " + it.code + "  error " + it.error,
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
 
                 }
@@ -50,12 +54,16 @@ class MainActivity : AppCompatActivity(), EmployeeListAdapter.Interaction {
         })
 
         employeeViewModel.searchData.observe(this, Observer {
-            when(it){
-                is ResultWrapper.Success->{
+            when (it) {
+                is ResultWrapper.Success -> {
                     updateRecyclerView(it.data)
                 }
                 is ResultWrapper.Error -> {
-                    Toast.makeText(this, "code  " + it.code + "  error " + it.error, Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        this,
+                        "code  " + it.code + "  error " + it.error,
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
 
                 }
@@ -65,9 +73,9 @@ class MainActivity : AppCompatActivity(), EmployeeListAdapter.Interaction {
             }
         })
 
-        search_et.addTextChangedListener(object:TextWatcher{
+        search_et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-            employeeViewModel.searchEmployee(s.toString().trim())
+                employeeViewModel.searchEmployee(s.toString().trim())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -79,15 +87,15 @@ class MainActivity : AppCompatActivity(), EmployeeListAdapter.Interaction {
     }
 
     private fun updateRecyclerView(data: List<EmployeeDbModel>) {
-        if (this::employeeListAdapter.isInitialized){
+        if (this::employeeListAdapter.isInitialized) {
             employeeListAdapter.submitList(data)
         }
 
     }
 
     override fun onItemSelected(position: Int, item: EmployeeDbModel) {
-        val intent=Intent(this,EmployeeDetailsActivity::class.java)
-        intent.putExtra("employee",item)
+        val intent = Intent(this, EmployeeDetailsActivity::class.java)
+        intent.putExtra("employee", item)
         startActivity(intent)
 
     }

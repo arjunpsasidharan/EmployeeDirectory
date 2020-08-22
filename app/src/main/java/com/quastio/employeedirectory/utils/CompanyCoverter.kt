@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.lang.reflect.Type
 
 
-object CompanyCoverter : Serializable{
+object CompanyCoverter : Serializable {
 
     @TypeConverter
     fun fromCompanyValues(company: Company?): String? {

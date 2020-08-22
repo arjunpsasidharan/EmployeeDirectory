@@ -8,7 +8,7 @@ import com.quastio.employeedirectory.models.Company
 import java.io.Serializable
 import java.lang.reflect.Type
 
-object AddressCoverter :Serializable {
+object AddressCoverter : Serializable {
     @TypeConverter
     fun fromAddressValue(address: Address?): String? {
         if (address == null) {

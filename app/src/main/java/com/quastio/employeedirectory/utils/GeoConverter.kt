@@ -7,7 +7,7 @@ import com.quastio.employeedirectory.models.Geo
 import java.io.Serializable
 import java.lang.reflect.Type
 
-object GeoConverter :Serializable {
+object GeoConverter : Serializable {
     @TypeConverter
     fun fromGeoValues(geo: Geo?): String? {
         if (geo == null) {

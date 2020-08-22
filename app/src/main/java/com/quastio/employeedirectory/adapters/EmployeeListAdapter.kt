@@ -18,14 +18,14 @@ class EmployeeListAdapter(private val interaction: Interaction? = null) :
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EmployeeDbModel>() {
 
         override fun areItemsTheSame(oldItem: EmployeeDbModel, newItem: EmployeeDbModel): Boolean {
-            return oldItem.id==newItem.id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
             oldItem: EmployeeDbModel,
             newItem: EmployeeDbModel
         ): Boolean {
-            return  oldItem==newItem
+            return oldItem == newItem
         }
 
     }
@@ -65,9 +65,9 @@ class EmployeeListAdapter(private val interaction: Interaction? = null) :
         itemView: View,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
-        val imageView:ImageView=itemView.findViewById(R.id.image_view)
-        val nametv:TextView=itemView.findViewById(R.id.name_tv)
-        val emailTv:TextView=itemView.findViewById(R.id.email_tv)
+        val imageView: ImageView = itemView.findViewById(R.id.image_view)
+        val nametv: TextView = itemView.findViewById(R.id.name_tv)
+        val emailTv: TextView = itemView.findViewById(R.id.email_tv)
 
         fun bind(item: EmployeeDbModel) = with(itemView) {
             itemView.setOnClickListener {
@@ -76,8 +76,8 @@ class EmployeeListAdapter(private val interaction: Interaction? = null) :
             Glide.with(itemView.context)
                 .load(item.profileImage)
                 .into(imageView)
-            nametv.text=item.name
-            emailTv.text=item.email
+            nametv.text = item.name
+            emailTv.text = item.email
 
         }
     }

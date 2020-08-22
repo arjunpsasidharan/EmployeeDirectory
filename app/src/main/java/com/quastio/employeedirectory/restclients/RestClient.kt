@@ -41,7 +41,7 @@ object RestClient {
 
     interface EmployeeApiService {
         @GET(END_POINT)
-        suspend fun getEmployees():List<EmployeePojo>
+        suspend fun getEmployees(): List<EmployeePojo>
 
     }
 

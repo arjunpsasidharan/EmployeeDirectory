@@ -17,7 +17,7 @@ import com.quastio.employeedirectory.utils.GeoConverter
 )
 @TypeConverters(CompanyCoverter::class, AddressCoverter::class, GeoConverter::class)
 
-abstract class EmployeeDb:RoomDatabase() {
+abstract class EmployeeDb : RoomDatabase() {
     abstract fun employeeDao(): EmployeeDao
 
     companion object {
@@ -27,6 +27,7 @@ abstract class EmployeeDb:RoomDatabase() {
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: buildDatabase(context).also { instance = it }
         }
+
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context,
             EmployeeDb::class.java, "employee_list.db"
