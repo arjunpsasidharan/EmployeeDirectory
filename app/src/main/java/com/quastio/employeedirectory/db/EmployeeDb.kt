@@ -4,13 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.quastio.employeedirectory.models.EmployeeDbModel
+import com.quastio.employeedirectory.utils.AddressCoverter
+import com.quastio.employeedirectory.utils.CompanyCoverter
+import com.quastio.employeedirectory.utils.GeoConverter
 
 @Database(
     entities = [EmployeeDbModel::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(CompanyCoverter::class, AddressCoverter::class, GeoConverter::class)
+
 abstract class EmployeeDb:RoomDatabase() {
     abstract fun employeeDao(): EmployeeDao
 
