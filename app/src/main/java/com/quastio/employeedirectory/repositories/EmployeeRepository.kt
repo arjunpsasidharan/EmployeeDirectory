@@ -12,6 +12,7 @@ import java.io.IOException
 
 object EmployeeRepository {
 var job:CompletableJob?=null
+    var searchJob:CompletableJob?=null
 
     fun <T> getEmployeeData(): MutableLiveData<ResultWrapper<List<EmployeeDbModel>>>{
         job= Job()
@@ -85,5 +86,28 @@ var job:CompletableJob?=null
             }
         }
 
+    }
+
+    fun <T>getFilterResult(key:String):MutableLiveData<ResultWrapper<List<EmployeeDbModel>>> {
+
+        searchJob = Job()
+        return object : MutableLiveData<ResultWrapper<List<EmployeeDbModel>>>() {
+            override fun onActive() {
+                super.onActive()
+                searchJob?.let {
+                    CoroutineScope(Dispatchers.IO + it).launch {
+                        val dbData =
+                            EmployeeDb.invoke(MyApplication.context).employeeDao().getFilterEmployee(key)
+                        if (dbData != null && dbData.isNotEmpty()) {
+                            withContext(Dispatchers.Main) {
+                                value = ResultWrapper.Success(dbData)
+                                it.complete()
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
     }
 }

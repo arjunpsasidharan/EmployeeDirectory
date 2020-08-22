@@ -3,6 +3,8 @@ package com.quastio.employeedirectory.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -44,6 +46,34 @@ class MainActivity : AppCompatActivity(), EmployeeListAdapter.Interaction {
                 ResultWrapper.NetworkError -> {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
+            }
+        })
+
+        employeeViewModel.searchData.observe(this, Observer {
+            when(it){
+                is ResultWrapper.Success->{
+                    updateRecyclerView(it.data)
+                }
+                is ResultWrapper.Error -> {
+                    Toast.makeText(this, "code  " + it.code + "  error " + it.error, Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+                ResultWrapper.NetworkError -> {
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        search_et.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            employeeViewModel.searchEmployee(s.toString().trim())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
     }
