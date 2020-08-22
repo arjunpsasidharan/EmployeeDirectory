@@ -3,11 +3,10 @@ package com.quastio.employeedirectory.models
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-
-
-class Address {
+class Address :Serializable{
     @SerializedName("street")
     @Expose
      var street: String? = null

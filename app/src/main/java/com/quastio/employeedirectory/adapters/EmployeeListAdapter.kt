@@ -4,8 +4,11 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import com.quastio.employeedirectory.R
 import com.quastio.employeedirectory.models.EmployeeDbModel
 
@@ -62,13 +65,20 @@ class EmployeeListAdapter(private val interaction: Interaction? = null) :
         itemView: View,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
+        val imageView:ImageView=itemView.findViewById(R.id.image_view)
+        val nametv:TextView=itemView.findViewById(R.id.name_tv)
+        val emailTv:TextView=itemView.findViewById(R.id.email_tv)
 
         fun bind(item: EmployeeDbModel) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
+            Glide.with(itemView.context)
+                .load(item.profileImage)
+                .into(imageView)
+            nametv.text=item.name
+            emailTv.text=item.email
 
-            TODO("bind view with data")
         }
     }
 
